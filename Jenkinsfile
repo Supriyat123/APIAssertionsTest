@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/Supriyat123/libraryapi.git'
+                    url: 'https://github.com/Supriyat123/APIAssertionsTest.git'
             }
         }
         stage('Build') {
