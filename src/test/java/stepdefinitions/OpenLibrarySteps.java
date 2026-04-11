@@ -5,6 +5,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -25,6 +27,7 @@ public class OpenLibrarySteps {
 
         System.out.println("Response status: " + response.getStatusCode());
         System.out.println("Response body: " + response.getBody().asString());
+
     }
 
     @Then("the response status code should be {int}")
@@ -37,17 +40,17 @@ public class OpenLibrarySteps {
     public void the_personal_name_should_be(String expectedName) {
         String actualName = response.jsonPath().getString("personal_name");
         System.out.println("personal_name in response: " + actualName);
-        assertEquals("personal_name mismatch", expectedName, actualName);
-        System.out.println("Step passed: personal_name = " + actualName);
+        assertEquals("No match found for the requested personal name", expectedName, actualName);
+        System.out.println("Step passed: Found a match for the requested author name " + actualName);
     }
 
     @And("the alternate_names should contain {string}")
     public void the_alternate_names_should_contain(String expectedName) {
-        java.util.List<String> alternateNames =
+        List<String> alternateNames =
                 response.jsonPath().getList("alternate_names");
         System.out.println("alternate_names in response: " + alternateNames);
         assertTrue(
-                "alternate_names did not contain: " + expectedName,
+                "No match found for the requested alternate name : " + expectedName,
                 alternateNames.contains(expectedName)
         );
         System.out.println("Step passed: alternate_names contains " + expectedName);
