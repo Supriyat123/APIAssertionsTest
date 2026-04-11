@@ -14,6 +14,9 @@ public class OpenLibrarySteps {
 
     private Response response;
 
+//-------------------------------------------------------------------
+// Extract the response
+//--------------------------------------------------------------------
     @Given("I send a GET request to the Open Library author endpoint")
     public void i_send_a_get_request() {
         response = RestAssured
@@ -30,11 +33,18 @@ public class OpenLibrarySteps {
 
     }
 
+//--------------------------------------------------------------------
+// Verify the API response status code matches the expected value
+//--------------------------------------------------------------------
     @Then("the response status code should be {int}")
     public void the_response_status_code_should_be(int expectedStatus) {
         assertEquals("Status code mismatch", expectedStatus, response.getStatusCode());
         System.out.println("Step passed: status code is " + expectedStatus);
     }
+
+//------------------------------------------------------------------------------
+// Verify the personal name in the API response matches the expected author name
+//------------------------------------------------------------------------------
 
     @And("the personal_name should be {string}")
     public void the_personal_name_should_be(String expectedName) {
@@ -43,6 +53,10 @@ public class OpenLibrarySteps {
         assertEquals("No match found for the requested personal name", expectedName, actualName);
         System.out.println("Step passed: Found a match for the requested author name " + actualName);
     }
+
+//-------------------------------------------------------------------------------
+// Verify the alternate names list in the API response contains the expected name
+//-------------------------------------------------------------------------------
 
     @And("the alternate_names should contain {string}")
     public void the_alternate_names_should_contain(String expectedName) {
@@ -53,6 +67,6 @@ public class OpenLibrarySteps {
                 "No match found for the requested alternate name : " + expectedName,
                 alternateNames.contains(expectedName)
         );
-        System.out.println("Step passed: alternate_names contains " + expectedName);
+        System.out.println("Step passed: Found a match for the alternate name " + expectedName);
     }
 }
