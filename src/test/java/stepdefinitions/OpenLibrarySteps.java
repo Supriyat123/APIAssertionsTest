@@ -21,12 +21,12 @@ public class OpenLibrarySteps {
     public void i_send_a_get_request() {
         response = RestAssured
                 .given()
-                .baseUri("https://openlibrary.org")
-                .header("Accept", "application/json")
+                 .baseUri("https://openlibrary.org")
+                 .header("Accept", "application/json")
                 .when()
-                .get("/authors/OL1A.json")
+                 .get("/authors/OL1A.json")
                 .then()
-                .extract().response();
+                 .extract().response();
 
         System.out.println("Response status: " + response.getStatusCode());
         System.out.println("Response body: " + response.getBody().asString());
@@ -57,7 +57,7 @@ public class OpenLibrarySteps {
 //-------------------------------------------------------------------------------
 // Verify the alternate names list in the API response contains the expected name
 //-------------------------------------------------------------------------------
-
+//TEST
     @And("the alternate_names should contain {string}")
     public void the_alternate_names_should_contain(String expectedName) {
         List<String> alternateNames =
